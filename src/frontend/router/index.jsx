@@ -1,7 +1,7 @@
 import React from 'react'
-import Home from '../pages/Home'
-import About from '../pages/About'
-import Inbox from '../pages/Inbox'
+import { HashRouter, Route, Link } from 'react-router-dom'
+import _ from 'lodash'
+import menus from '../mock/menus'
 
 export default class Router extends React.Component {
   constructor(props) {
@@ -20,33 +20,31 @@ export default class Router extends React.Component {
   }
 
   render() {
-    let Child
-    switch (this.state.route) {
-      case '/about':
-        Child = About
-        break
-      case '/inbox':
-        Child = Inbox
-        break
-      default:
-        Child = Home
+    const Child = () => {
+      const Tag = _.find(menus, { path: this.state.route }).component
+      return <Tag />
     }
 
     return (
       <div>
         <h1>App</h1>
-        <ul>
-          <li>
-            <a href="#/home">Home</a>
-          </li>
-          <li>
-            <a href="#/about">About</a>
-          </li>
-          <li>
-            <a href="#/inbox">Inbox</a>
-          </li>
-        </ul>
-        <Child />
+        <hr />
+        <HashRouter>
+          <div>
+            <ul>
+              {menus.map((router, i) => {
+                return (
+                  <li key={i}>
+                    <Link to={router.path}>{router.name}</Link>
+                  </li>
+                )
+              })}
+            </ul>
+
+            <hr />
+            <Route component={Child} />
+          </div>
+        </HashRouter>
       </div>
     )
   }
