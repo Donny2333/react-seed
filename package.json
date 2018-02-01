@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^3.1.6",
+    "eslint-plugin-compat": "^2.2.0",
     "history": "^4.6.1",
     "lodash": "^4.17.4",
     "react": "^16.2.0",
